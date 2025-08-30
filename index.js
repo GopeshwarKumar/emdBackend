@@ -402,13 +402,13 @@ app.get("/showleaves", async(req,res)=>{
 })
 
 // checkEmployeeLeave at Admin Panel
-app.post('/checkEmployeeLeave',async(req,res)=>{
+app.get('/checkEmployeeLeave',async(req,res)=>{
     const employeeLeave=await leave.find({"email":req.body.email})
     res.send(employeeLeave)
 })
 
 // Get all particular employee Leave at employee panel
-app.post("/allemployeeleaves",async (req,res)=>{
+app.get("/allemployeeleaves",async (req,res)=>{
     const l=await leave.find({"email":req.body.email})
     res.send(l)
 })
