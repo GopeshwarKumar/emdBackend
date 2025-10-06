@@ -282,23 +282,12 @@ app.post("/addnewdepartment",async (req,res)=>{
 
 // Edit department
 app.post("/editdepartment",async (req,res)=>{
-    const editdepartment =await department.findOneAndUpdate({ "departmentName": req.body.editdepartmentName },{ $set: {"departmentName":req.body.editdepartmentName,"departmentDescription":req.body.editdepartmentDescription}},{ new: true })
-    console.log(editdepartment)
-
-    // await editdepartment.save().then(re=>{
-    //     res.send({message:"Department Updated"})
-    // }).catch(er=>{
-    //     res.status(500).send({message:"Error found !"})
-    // })
-
-    console.log(req.body)
-    // console.log(editdepartment)
-    // await existedNewdepartment.save().then(reses=>{
-    // res.send({message:"Department Details Updated"})
-    // console.log(reses)
-    // }).catch(er=>{
-    // res.status(500).send({message:"Error found !"})
-    // })
+    const editdepartment =await department.findById(req.body.editdepartmentId)
+    await editdepartment.updateOne({"departmentName":req.body.editdepartmentName,"departmentDescription":req.body.editdepartmentDescription}).then(ress=>{
+        res.send({message:"Updated"})
+    }).catch(err=>{
+        res.send({message:"Error !"})
+    })
 })
 
 // Delete Department
@@ -413,10 +402,9 @@ app.get("/allemployeeleaves",async (req,res)=>{
     res.send(l)
 })
 
-
 const port=process.env.PORT
 app.listen(port,()=>{
-    console.log("running On 5000 Port")
+    console.log(`Working ${port}`)
 })
 
 // nodemon start index.js
